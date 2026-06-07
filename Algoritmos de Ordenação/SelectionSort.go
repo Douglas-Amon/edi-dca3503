@@ -6,7 +6,7 @@ func SelectionSort(v []int){
 	for i := 0 ; i < len(v)-1 ; i++{
 		menor := i
 		for j := i+1 ; j < len(v) ; j++{
-			if v[j] < v[menor}{
+			if v[j] < v[menor]{
 				menor = j
 			}
 		}
