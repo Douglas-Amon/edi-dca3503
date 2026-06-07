@@ -2,22 +2,15 @@ package main
 
 import "fmt"
 
-func selectionSort(arr []int) {
-	n := len(arr)
-
-	for i := 0; i < n-1; i++ {
-		minIndex := i
-
-		// procura o menor elemento no restante do array
-		for j := i + 1; j < n; j++ {
-			if arr[j] < arr[minIndex] {
-				minIndex = j
+func SelectionSort(v []int){
+	for i := 0 ; i < len(v)-1 ; i++{
+		menor := i
+		for j := i+1 ; j < len(v) ; j++{
+			if v[j] < v[menor}{
+				menor = j
 			}
 		}
-
-		// troca o elemento atual com o menor encontrado
-		arr[i] = arr[minIndex]
-    arr[minIndex] = arr[i]
+	v[i], v[menor] = v[menor], v[i]
 	}
 }
 
@@ -26,7 +19,7 @@ func main() {
 
 	fmt.Println("Antes:", arr)
 
-	selectionSort(arr)
+	SelectionSort(arr)
 
 	fmt.Println("Depois:", arr)
 }
