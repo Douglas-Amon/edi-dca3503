@@ -4,6 +4,26 @@ type BSTNode struct{
   right *BstNode
 }
 
+func (node *BSTNode) Min() int{
+	if node == nil{
+		return 0
+	}
+	if node.left == nil{
+		return node.val
+	}
+	return node.left.Min()
+}
+
+func (node *BSTNode) Max() int{
+	if node == nil{
+		return 0
+	}
+	if node.right == nil{
+		return node.val
+	}
+	return node.right.Max()
+}
+
 func (node *BSTNode) LevelOrderNav(){
   queue := make([]*BSTNode, 0)
   queue = append(queue, node)
@@ -32,28 +52,21 @@ func (node *BSTNode) Height() int{
   return 1 + rightHeight
 }
 
-func (node *BSTNode) NumPar() int{
-  if node == nil{
-    return 0
-  }
-  if node.val % 2 == 0 {
-    return 1 + node.left.NumPar() + node.right.NumPar()
-  } else {
-    return 0 + node.left.NumPar() + node.right.NumPar()
-  }
+func (node *BSTNode) Par() int{
+	if node == nil{
+		return 0
+	}
+	if node.val % 2 == 0{
+		return 1+node.left.Par()+node.right.Par()
+	}
+	return 0+node.left.Par()+node.right.Par()
 }
 
-func (node *BSTNode) Min() int {
-	if node == nil {
-		return 0 
+func (node *BSTNode) Count() int{
+	if node == nil{
+		return 0
 	}
-	current := node
-	// Enquanto houver um filho à esquerda, continue descendo
-	for current.left != nil {
-		current = current.left
-	}
-	// Quando o 'for' acabar, encontramos o nó mais à esquerda
-	return current.val
+	return 1 + node.left.Count() + node.right.Count()
 }
 
 func (node *BSTNode) Remove(val int) *BSTNode{
