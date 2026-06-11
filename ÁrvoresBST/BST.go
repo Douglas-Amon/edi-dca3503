@@ -4,6 +4,22 @@ type BSTNode struct{
   right *BstNode
 }
 
+func (node *BstNode) Add(value int) {
+	if value < node.value {
+		if node.left == nil {
+			node.left = &BstNode{value: value}
+		} else {
+			node.left.Add(value)
+		}
+	} else {
+		if node.right == nil {
+			node.right = &BstNode{value: value}
+		} else {
+			node.right.Add(value)
+		}
+	}
+}
+
 func (node *BSTNode) Min() int{
 	if node == nil{
 		return 0
