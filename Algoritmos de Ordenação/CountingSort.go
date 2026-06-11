@@ -21,7 +21,7 @@ func CountingSort(v []int) []int{
     c[v[i]-menor]++
   }
   //soma acumulativa
-  for i:=0; i < len(c); i++{
+  for i:=1; i < len(c); i++{
     c[i]+=c[i-1]
   }
   //criar vetor ordenado e reconstruir
