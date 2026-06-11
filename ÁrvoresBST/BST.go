@@ -125,6 +125,18 @@ func (node *BSTNode) isBst() bool {
 	return node.left.isBst() && node.right.isBst()
 }
 
+func convertToBalancedBst(v []int, ini int, fim int) *BSTNode {
+	if ini > fim{
+		return nil
+	}
+	meio := (ini+fim)/2
+	return &BstNode {
+		value: v[meio],
+		left: convertToBalancedBst(v, ini, meio-1),
+		right: convertToBalancedBst(v, meio+1, fim),
+		}
+}
+
 func (node *BSTNode) Remove(val int) *BSTNode{
   if val < node.val{
     node.left = node.left.Remove(val)
