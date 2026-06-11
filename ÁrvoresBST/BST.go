@@ -24,6 +24,33 @@ func (node *BSTNode) Max() int{
 	return node.right.Max()
 }
 
+func (node *BSTNode) PreOrderNav(){
+	//RED
+	if node != nil{
+		print(node.val," ")
+		node.left.PreOrderNav()
+		node.right.PreOrderNav()
+	}
+}
+
+func (node *BSTNode) InOrderNav(){
+	//ERD
+	if node != nil{
+		node.left.InOrderNav()
+		print(node.val, " ")
+		node.right.InOrderNav()
+	}
+}
+
+func (node *BSTNode) PosOrderNav(){
+	//EDR
+	if node != nil{
+		node.left.PosOrderNav()
+		node.right.PosOrderNav()
+		print(node.val, " ")
+	}
+}
+
 func (node *BSTNode) LevelOrderNav(){
   queue := make([]*BSTNode, 0)
   queue = append(queue, node)
@@ -62,18 +89,33 @@ func (node *BSTNode) Par() int{
 	return 0+node.left.Par()+node.right.Par()
 }
 
-func (node *BSTNode) Count() int{
+func (node *BSTNode) Size() int{
 	if node == nil{
 		return 0
 	}
-	return 1 + node.left.Count() + node.right.Count()
+	return 1 + node.left.Size() + node.right.Size()
+}
+
+func (node *BSTNode) isBst() bool {
+	if node == nil {
+		return true
+	}
+	if node.left != nil && node.left.Max() >= node.val{
+		return false
+	}
+	if node.right != nil && node.right.Min() <= node.val{
+		return false
+	}
+	return node.left.isBst() && node.right.isBst()
 }
 
 func (node *BSTNode) Remove(val int) *BSTNode{
   if val < node.val{
     node.left = node.left.Remove(val)
+	return node
   } else if val > node.val{
     node.right = node.right.Remove(val)
+	return node
   } else { // encontramos o nó
     if node.left == nil && node.right == nil{
       //caso 1: nó folha
