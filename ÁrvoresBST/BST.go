@@ -4,40 +4,58 @@ type BSTNode struct{
   right *BstNode
 }
 
-func (node *BstNode) Add(value int) {
-	if value < node.value {
-		if node.left == nil {
-			node.left = &BstNode{value: value}
+func CreateBSTNode(val int) *BSTNode{
+  return &BSTNode{val:val}
+}
+
+func (node *BSTNode) Add(val int){
+	if val <= node.val { //esquerda
+		if node.left != nil {
+			node.left.Add(val)
 		} else {
-			node.left.Add(value)
+			node.left = CreateBSTNode(val)
+		}		
+	} else { //direita
+		if node.right != nil {
+			node.right.Add(val)
+		} else {
+			node.right = CreateBSTNode(val)
+		}
+	}
+}
+
+func (node *BSTNode) Search(val int) bool{
+	if val == node.val  {
+		return true
+	} else if val < node.val {
+		if node.left == nil {
+			return false
+		} else{
+			return node.left.Search(val)
 		}
 	} else {
 		if node.right == nil {
-			node.right = &BstNode{value: value}
-		} else {
-			node.right.Add(value)
+			return false
+		} else{
+			return node.right.Search(val)
 		}
 	}
 }
 
 func (node *BSTNode) Min() int{
-	if node == nil{
-		return 0
-	}
-	if node.left == nil{
+	if node.left == nil {
 		return node.val
+	} else {
+		return node.left.Min()
 	}
-	return node.left.Min()
 }
 
 func (node *BSTNode) Max() int{
-	if node == nil{
-		return 0
-	}
-	if node.right == nil{
+	if node.right == nil {
 		return node.val
+	} else {
+		return node.right.Max()
 	}
-	return node.right.Max()
 }
 
 func (node *BSTNode) PreOrderNav(){
