@@ -28,4 +28,16 @@ func (root *BstNode) RotLeft *BstNode {
   return newRoot
 }
 
-//Atualiza as propriedades de fator de balanço e altura == 
+//Atualiza as propriedades de fator de balanço e altura
+func (root *BstNode) UpdateProperties() {
+  if root.left == nil && root.right == nil{
+    root.height = 0
+    root.bf = 0
+  } else {
+    if root.left != nil {hleft = root.left.height}
+    if root.right != nil {hright = root.right.height}
+    if hleft >= height {root.height = hleft+1}
+    else {root.height = hright+1}
+    root.bf = hright - hleft
+  }
+}
