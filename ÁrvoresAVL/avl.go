@@ -114,3 +114,31 @@ func (root *BstNode) Add(val int) *BstNode{
   return root.Rebalance()
 }
     
+func (root *BstNode) Remove(val int) *BstNode{
+  if val < root.val{
+    root.left = root.left.Remove(val)
+	return root
+  } else if val > root.val{
+    root.right = root.right.Remove(val)
+	return root
+  } else { // encontramos o nó
+    if root.left == nil && root.right == nil{
+      //caso 1: nó folha
+      return nil // esse é o novo valor que o pai do nó folha apontará
+    } else if root.left != nil && root.right == nil{
+      //caso 2: há 1 filho a esquerda
+      return root.left
+    } else if root.left == nil && root.right != nil{
+      //caso 2: há um filho a direita
+      return root.right
+    } else {
+      // caso 3: 2 filhos
+      min := root.right.Min()
+      root.val = min
+      root.right = root.right.Remove(min)
+      return root
+    }
+  }
+  root.UpdateProperties()
+  return root.Rebalance()
+}
