@@ -14,6 +14,7 @@ type BstNode struct{
 func (root *BstNode) RotRight() *BstNode {
   newRoot := root.left
   root.left = newRoot.right
+  newRoot.right = root
   root.UpdateProperties()
   newRoot.UpdateProperties()
   return newRoot
@@ -21,11 +22,12 @@ func (root *BstNode) RotRight() *BstNode {
 
 //Rotação para esquerda
 func (root *BstNode) RotLeft *BstNode {
-  newRoot := root.right
-  root.right = newRoot.left
-  root.UpdateProperties()
-  newRoot.UpdateProperties()
-  return newRoot
+	newRoot := root.right
+	root.right = newRoot.left
+	newRoot.left = root
+	root.UpdateProperties()
+	newRoot.UpdateProperties()
+	return newRoot
 }
 
 //Atualiza as propriedades de fator de balanço e altura
