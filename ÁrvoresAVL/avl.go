@@ -10,6 +10,27 @@ type BstNode struct{
   height int
 }
 
+// Função auxiliar interna 
+func createBSTNode(val int) *BstNode {
+	return &BstNode{val: val, height: 0, bf: 0}
+}
+
+func (root *BstNode) Min() int {
+	current := root
+	for current.left != nil {
+		current = current.left
+	}
+	return current.val
+}
+
+func (root *BstNode) Max() int {
+	current := root
+	for current.right != nil {
+		current = current.right
+	}
+	return current.val
+}
+
 //Rotação para direita
 func (root *BstNode) RotRight() *BstNode {
   newRoot := root.left
@@ -21,7 +42,7 @@ func (root *BstNode) RotRight() *BstNode {
 }
 
 //Rotação para esquerda
-func (root *BstNode) RotLeft *BstNode {
+func (root *BstNode) RotLeft() *BstNode {
 	newRoot := root.right
 	root.right = newRoot.left
 	newRoot.left = root
@@ -36,11 +57,19 @@ func (root *BstNode) UpdateProperties() {
     root.height = 0
     root.bf = 0
   } else {
-    hleft := 0, hright := 0
-    if root.left != nil {hleft = root.left.height}
-    if root.right != nil {hright = root.right.height}
-    if hleft >= height {root.height = hleft+1}
-    else {root.height = hright+1}
+    hleft := 0
+	hright := 0
+    if root.left != nil {
+		hleft = root.left.height
+	}
+    if root.right != nil {
+		hright = root.right.height
+	}
+    if hleft >= hright {
+		root.height = hleft+1
+	} else {
+		root.height = hright+1
+	}
     root.bf = hright - hleft
   }
 }
