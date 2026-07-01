@@ -1,6 +1,6 @@
-import "fmt"
-
 package main
+
+import "fmt"
 
 type BstNode struct{
   left *BstNode
